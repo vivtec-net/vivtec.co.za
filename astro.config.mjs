@@ -1,7 +1,9 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://vivtec-net.github.io/web-vivtec-main/",
+	site: "https://vivtec.co.za",
+	integrations: [mdx()],
 });
