@@ -1,0 +1,6 @@
+---
+const { pathname } = Astro.url;
+---
+
+<a aria-current={pathname.slice(1) === "" ? "page" : "false"} href="/"> Home </a>
+<a aria-current={pathname.slice(1) === "about" ? "page" : "false"} href="/about"> About </a>
