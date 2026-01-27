@@ -1,12 +1,17 @@
 ---
 import BlockHead from "../blocks/BlockHead.astro";
 import BlockNav from "../blocks/BlockNav.astro";
+
+const { title, description, image = "../assets/images/favicon.svg" } = Astro.props;
 ---
 
-<html>
-	<BlockHead />
+<!doctype html>
+<html lang="en">
+	<BlockHead title={title} description={description} image={image} />
 	<BlockNav />
 	<body>
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>

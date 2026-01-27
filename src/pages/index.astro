@@ -1,8 +1,12 @@
 ---
 import LayoutDefault from "../layouts/LayoutDefault.astro";
+
+const title = "Home";
+const description = "My Description";
+const image = "../assets/images/favicon.svg";
 ---
 
-<LayoutDefault>
+<LayoutDefault title={title} description={description} image={image}>
 	<h1>Using github pages</h1>
 	<p>Read more <a href="/about/">about</a> Astro!</p>
 	<p>Read more <a href="/blogs/">about</a> Astro!</p>

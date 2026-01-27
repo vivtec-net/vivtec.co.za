@@ -1,16 +1,24 @@
 ---
+import LayoutDefault from "../layouts/LayoutDefault.astro";
+
 import { getCollection } from "astro:content";
 const posts = (await getCollection("blogs")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title = "Blogs";
+const description = "My Description";
+const image = "../assets/images/favicon.svg";
 ---
 
-<h1>My posts</h1>
-<ul>
-	{
-		posts.map((post) => (
-			<li>
-				<a href={`/blogs/${post.id}`}>{post.data.title}</a>
-			</li>
-		))
-	}
-</ul>
-<p>tets</p>
+<LayoutDefault title={title} description={description} image={image}>
+	<h1>My posts</h1>
+	<ul>
+		{
+			posts.map((post) => (
+				<li>
+					<a href={`/blogs/${post.id}`}>{post.data.title}</a>
+				</li>
+			))
+		}
+	</ul>
+	<p>tets</p>
+</LayoutDefault>

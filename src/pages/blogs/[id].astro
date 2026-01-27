@@ -1,8 +1,7 @@
 ---
 import LayoutDefault from "../../layouts/LayoutDefault.astro";
-
 import { getCollection, render } from "astro:content";
-// 1. Generate a new path for every collection entry
+
 export async function getStaticPaths() {
 	const posts = await getCollection("blogs");
 	return posts.map((post) => ({
@@ -10,11 +9,14 @@ export async function getStaticPaths() {
 		props: { post },
 	}));
 }
-// 2. For your template, you can get the entry directly from the prop
+
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const { title, description } = post.data;
+const image = "../assets/images/favicon.svg";
 ---
 
-<LayoutDefault>
+<LayoutDefault title={title} description={description} image={image}>
 	<Content />
 </LayoutDefault>

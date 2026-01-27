@@ -1,0 +1,91 @@
+@layer reset, base;
+
+@layer reset {
+	:root {
+		color-scheme: light;
+		overflow-y: scroll;
+		scroll-behavior: smooth;
+		scrollbar-width: thin;
+		scrollbar-color: dark;
+		font: normal normal normal 62.5% / 1.2 system-ui;
+		interpolate-size: allow-keywords;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+	}
+
+	fieldset,
+	input,
+	button,
+	textarea,
+	select,
+	option,
+	label,
+	legend,
+	progress,
+	meter,
+	output,
+	time {
+		display: block;
+		font-size: inherit;
+	}
+
+	:is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table):has(
+		+ :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table)
+	) {
+		margin-block: 0 2rem;
+	}
+
+	:is(p, ul, ol, blockquote, pre, table):has(+ :is(h1, h2, h3, h4, h5, h6)) {
+		margin-block: 0 4rem;
+	}
+
+	a {
+		text-decoration: none;
+		color: currentColor;
+	}
+
+	ul,
+	ol {
+		padding-inline-start: 3rem;
+
+		&[role="list"] {
+			list-style: none;
+			padding: 0;
+
+			li {
+				margin: 0;
+			}
+		}
+	}
+
+	img,
+	picture,
+	figure,
+	iframe,
+	video,
+	svg {
+		display: block;
+		max-inline-size: 100%;
+		block-size: auto;
+	}
+
+	svg * {
+		transform-box: fill-box;
+		transform-origin: center;
+	}
+
+	[popover] {
+		margin: auto;
+	}
+}
+
+@layer base {
+	body {
+		font-size: 2rem;
+	}
+}
