@@ -7,7 +7,80 @@ const image = "../assets/images/favicon.svg";
 ---
 
 <LayoutDefault title={title} description={description} image={image}>
-	<h1>Using github pages</h1>
-	<p>Read more <a href="/about/">about</a> Astro!</p>
-	<p>Read more <a href="/blogs/">about</a> Astro!</p>
+	<h1>Nothing to read yet</h1>
+	<div class="star"></div>
+	<style>
+		.star {
+			position: relative;
+			display: grid;
+			grid: "stack";
+			place-items: center;
+			width: 150px;
+			aspect-ratio: 1;
+			filter: blur(2px);
+			mask: radial-gradient(#fff 20%, transparent 80%);
+
+			&::before,
+			&::after {
+				--color: #00b7ff;
+				content: "";
+				width: 100%;
+				aspect-ratio: 1;
+				grid-area: stack;
+			}
+
+			&::before {
+				border-radius: 50%;
+				background:
+					conic-gradient(from 0deg at 50% 0%, transparent 48%, var(--color), white, var(--color), transparent 52%)
+						center top / 50% 50% no-repeat,
+					conic-gradient(from 180deg at 50% 100%, transparent 48%, var(--color), white, var(--color), transparent 52%)
+						center bottom / 50% 50% no-repeat,
+					conic-gradient(from 270deg at 0% 50%, transparent 48%, var(--color), white, var(--color), transparent 52%)
+						left center / 50% 50% no-repeat,
+					conic-gradient(from 90deg at 100% 50%, transparent 48%, var(--color), white, var(--color), transparent 52%)
+						right center / 50% 50% no-repeat;
+				animation:
+					pulse 1s 0.05s linear(0, -0.041 26.4%, -0.357 62.4%, -0.353 74.4%, 0.047 88.4%, 1) infinite alternate,
+					spin 100s 0s ease-in-out infinite;
+			}
+			&::after {
+				background:
+					radial-gradient(white 5%, var(--color) 20%, transparent 20%) no-repeat,
+					conic-gradient(from 0deg at 50% 0%, transparent 49%, var(--color), white, var(--color), transparent 51%)
+						center top / 50% 50% no-repeat,
+					conic-gradient(from 180deg at 50% 100%, transparent 49%, var(--color), white, var(--color), transparent 51%)
+						center bottom / 50% 50% no-repeat,
+					conic-gradient(from 270deg at 0% 50%, transparent 49%, var(--color), white, var(--color), transparent 51%)
+						left center / 50% 50% no-repeat,
+					conic-gradient(from 90deg at 100% 50%, transparent 48%, var(--color), transparent 52%) right center / 50% 50%
+						no-repeat,
+					conic-gradient(from 0deg at 50% 0%, transparent 48%, var(--color), transparent 58%) center top / 50% 50%
+						no-repeat,
+					conic-gradient(from 180deg at 50% 100%, transparent 48%, var(--color), transparent 58%) center bottom / 50%
+						50% no-repeat,
+					conic-gradient(from 270deg at 0% 50%, transparent 48%, var(--color), transparent 58%) left center / 50% 50%
+						no-repeat,
+					conic-gradient(from 90deg at 100% 50%, transparent 48%, var(--color), transparent 58%) right center / 50% 50%
+						no-repeat;
+				width: 100%;
+				rotate: 45deg;
+				animation:
+					pulse 1s 0s linear(0, -0.041 26.4%, -0.357 62.4%, -0.353 74.4%, 0.047 88.4%, 1) infinite alternate,
+					spin 50s 0s ease-in-out infinite reverse;
+				mask: radial-gradient(white 10%, transparent 40%);
+			}
+		}
+		@keyframes pulse {
+			20% {
+				scale: 1.05;
+				filter: brightness(1.05);
+			}
+		}
+		@keyframes spin {
+			to {
+				rotate: 360deg;
+			}
+		}
+	</style>
 </LayoutDefault>
