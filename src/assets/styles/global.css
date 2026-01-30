@@ -2,12 +2,12 @@
 
 @layer reset {
 	:root {
-		color-scheme: light;
+		color-scheme: dark;
 		overflow-y: scroll;
 		scroll-behavior: smooth;
 		scrollbar-width: thin;
 		scrollbar-color: dark;
-		font: normal normal normal 62.5% / 1.2 system-ui;
+		font: normal normal normal 62.5% / 1.35 system-ui;
 		interpolate-size: allow-keywords;
 	}
 
@@ -85,6 +85,43 @@
 }
 
 @layer base {
+	@media (prefers-reduced-motion: no-preference) {
+		@view-transition {
+			navigation: auto;
+		}
+	}
+
+	::view-transition-old(root) {
+		animation: 2s cubic-bezier(0.36, 0, 0.64, 1) slide-out;
+	}
+	::view-transition-new(root) {
+		animation: 2s cubic-bezier(0.36, 0, 0.64, 1) slide-in;
+	}
+
+	@keyframes slide-out {
+		from {
+			translate: 0%;
+			opacity: 1;
+		}
+
+		to {
+			translate: -100%;
+			opacity: 1;
+			scale: 0.75;
+		}
+	}
+	@keyframes slide-in {
+		from {
+			translate: 100%;
+			opacity: 0;
+		}
+
+		to {
+			translate: 0%;
+			opacity: 1;
+		}
+	}
+
 	body {
 		font-size: 2rem;
 	}

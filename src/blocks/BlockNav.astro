@@ -2,5 +2,7 @@
 const { pathname } = Astro.url;
 ---
 
-<a aria-current={pathname === "/" ? "page" : "false"} href="/"> Home </a>
-<a aria-current={pathname === "/about/" ? "page" : "false"} href="/about/"> About </a>
+<nav>
+	<a aria-current={pathname === "/" ? "page" : "false"} href="/"> Home </a>
+	<a aria-current={pathname === "/about/" ? "page" : "false"} href="/about/"> About </a>
+</nav>
