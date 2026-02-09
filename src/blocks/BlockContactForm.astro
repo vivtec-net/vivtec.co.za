@@ -8,7 +8,7 @@
 		<label for="fname">First Name</label>
 		<input name="fname" required />
 	</fieldset>
-	<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f217-p24-o1" />
+	<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f6-p8-o1" />
 	<button type="submit">Send Message</button>
 	<output id="statusMessage" aria-live="polite">Status Message</output>
 </form>
@@ -20,7 +20,7 @@
 		statusMessage.setAttribute("data-status", "submitting");
 		statusMessage.value = "Submitting form...";
 
-		let response = await fetch("https://10.0.0.11:9002/wp-json/contact-form-7/v1/contact-forms/217/feedback", {
+		let response = await fetch("https://vivtec.co.za/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
 			method: "POST",
 			body: new FormData(formContact),
 		});
