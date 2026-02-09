@@ -3,6 +3,15 @@ const { pathname } = Astro.url;
 ---
 
 <nav>
-	<a aria-current={pathname === "/" ? "page" : "false"} href="/"> Home </a>
-	<a aria-current={pathname === "/about/" ? "page" : "false"} href="/about/"> About </a>
+	<ul role="list">
+		<li><a aria-current={pathname === "/" ? "page" : "false"} href="/">Home</a></li>
+		<li><a aria-current={pathname === "/about/" ? "page" : "false"} href="/about/">About</a></li>
+	</ul>
 </nav>
+
+<style>
+	nav > ul {
+		display: flex;
+		gap: 30px;
+	}
+</style>

@@ -1,0 +1,44 @@
+---
+
+---
+
+<form id="formContact">
+	<fieldset>
+		<legend>Your Details</legend>
+		<label for="fname">First Name</label>
+		<input name="fname" required />
+	</fieldset>
+	<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f217-p24-o1" />
+	<button type="submit">Send Message</button>
+	<output id="statusMessage" aria-live="polite">Status Message</output>
+</form>
+
+<script is:inline>
+	formContact.onsubmit = async (e) => {
+		e.preventDefault();
+
+		statusMessage.setAttribute("data-status", "submitting");
+		statusMessage.value = "Submitting form...";
+
+		let response = await fetch("https://10.0.0.11:9002/wp-json/contact-form-7/v1/contact-forms/217/feedback", {
+			method: "POST",
+			body: new FormData(formContact),
+		});
+
+		let result = await response.json();
+
+		statusMessage.setAttribute("data-status", "completed");
+		statusMessage.value = result.message;
+	};
+</script>
+
+<style>
+	output {
+		&[data-status="submitting"] {
+			background: orange;
+		}
+		&[data-status="completed"] {
+			background: green;
+		}
+	}
+</style>

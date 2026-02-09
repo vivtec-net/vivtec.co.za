@@ -1,4 +1,4 @@
-@layer reset, base;
+@layer reset, theme;
 
 @layer reset {
 	:root {
@@ -7,6 +7,7 @@
 		scroll-behavior: smooth;
 		scrollbar-width: thin;
 		scrollbar-color: dark;
+		overflow-y: scroll;
 		font: normal normal normal 62.5% / 1.35 system-ui;
 		interpolate-size: allow-keywords;
 	}
@@ -18,30 +19,23 @@
 		margin: 0;
 	}
 
-	fieldset,
+	body {
+		font-size: 2rem;
+	}
+
 	input,
-	button,
-	textarea,
 	select,
-	option,
-	label,
-	legend,
-	progress,
-	meter,
-	output,
-	time {
-		display: block;
-		font-size: inherit;
+	textarea,
+	button {
+		font: inherit;
 	}
 
-	:is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table):has(
-		+ :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table)
-	) {
-		margin-block: 0 2rem;
+	:is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, table, form, details):not(:where(:last-child)) {
+		margin-block-end: 2rem;
 	}
 
-	:is(p, ul, ol, blockquote, pre, table):has(+ :is(h1, h2, h3, h4, h5, h6)) {
-		margin-block: 0 4rem;
+	:is(p, ul, ol, blockquote, pre, table, form, details):has(+ :is(h1, h2, h3, h4, h5, h6)) {
+		margin-block-end: 4rem;
 	}
 
 	a {
@@ -82,47 +76,21 @@
 	[popover] {
 		margin: auto;
 	}
-}
 
-@layer base {
 	@media (prefers-reduced-motion: no-preference) {
 		@view-transition {
 			navigation: auto;
 		}
 	}
+}
 
-	::view-transition-old(root) {
-		animation: 2s cubic-bezier(0.36, 0, 0.64, 1) slide-out;
-	}
-	::view-transition-new(root) {
-		animation: 2s cubic-bezier(0.36, 0, 0.64, 1) slide-in;
-	}
-
-	@keyframes slide-out {
-		from {
-			translate: 0%;
-			opacity: 1;
-		}
-
-		to {
-			translate: -100%;
-			opacity: 1;
-			scale: 0.75;
-		}
-	}
-	@keyframes slide-in {
-		from {
-			translate: 100%;
-			opacity: 0;
-		}
-
-		to {
-			translate: 0%;
-			opacity: 1;
-		}
-	}
-
-	body {
-		font-size: 2rem;
+@layer theme {
+	:root {
+		--c-blu: oklch(0.546 0.245 262.881);
+		--c-grn: oklch(0.711 0.2407 142.57);
+		--c-yel: oklch(0.8834 0.1777 106.37);
+		--c-red: oklch(0.5988 0.2442 27.71);
+		--c-blc: oklch(0 0 0);
+		--c-wht: oklch(1 0 0);
 	}
 }

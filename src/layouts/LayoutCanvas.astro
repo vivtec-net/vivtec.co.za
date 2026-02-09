@@ -1,11 +1,75 @@
 ---
 import BlockHead from "../blocks/BlockHead.astro";
+
+const { title, description, image = "favicon.svg" } = Astro.props;
 ---
 
 <!doctype html>
-<html>
-	<BlockHead />
+<html lang="en">
+	<BlockHead title={title} description={description} image={image} />
 	<body>
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
+
+<style>
+	body {
+		min-block-size: 100svh;
+		display: grid;
+		grid:
+			"nav" auto
+			"main" 1fr
+			"foo" auto / 1fr;
+		background: #0d0f14;
+
+		nav {
+			grid-area: nav;
+		}
+		main {
+			grid-area: main;
+		}
+		footer {
+			grid-area: foo;
+		}
+
+		&::before,
+		&::after {
+			content: "";
+			position: fixed;
+			z-index: -1;
+			inset: -50% auto auto -50%;
+			width: 200%;
+			height: 200%;
+			image-rendering: pixelated;
+		}
+
+		&::before {
+			background: url("/bg.avif") center center / 1000px repeat;
+			animation: rotate 500s linear 0s infinite forwards;
+		}
+
+		&::after {
+			background: url("/bg.avif") center center / 1500px repeat;
+			animation: rotate 300s linear -0.5s infinite forwards;
+		}
+	}
+
+	@keyframes rotate {
+		to {
+			rotate: 360deg;
+		}
+	}
+
+	nav {
+		padding-inline: 2em;
+	}
+
+	main {
+		display: grid;
+		place-items: center;
+		place-content: center;
+		text-align: center;
+	}
+</style>
