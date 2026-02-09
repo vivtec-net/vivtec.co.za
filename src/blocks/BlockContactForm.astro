@@ -36,7 +36,7 @@
 		statusMessage.setAttribute("data-status", "submitting");
 		statusMessage.value = "Submitting form...";
 
-		let response = await fetch("https://vivtec.co.za/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
+		let response = await fetch("https://lab.vivtec.co.za/forms/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
 			method: "POST",
 			body: new FormData(formContact),
 		});
