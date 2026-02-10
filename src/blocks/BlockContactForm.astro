@@ -43,7 +43,6 @@
 			});
 
 			if (!response.ok) {
-				// Handle non-200 responses, including 403
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 
@@ -52,19 +51,15 @@
 			statusMessage.setAttribute("data-status", "completed");
 			statusMessage.value = result.message;
 		} catch (error) {
-			// Comprehensive error handling
 			console.error("Form submission error:", error);
-
-			// Set status to error
 			statusMessage.setAttribute("data-status", "error");
 
-			// Provide user-friendly error messages based on different scenarios
-			if (error.message.includes("403")) {
-				statusMessage.value = "**Access Denied**: The form submission was blocked. Please contact support.";
+			if (error instanceof TypeError && error.message.includes("NetworkError")) {
+				statusMessage.value = "Access Restricted: Form submission blocked.";
 			} else if (!navigator.onLine) {
-				statusMessage.value = "**Network Error**: Please check your internet connection.";
+				statusMessage.value = "Network Error: Please check your internet connection.";
 			} else {
-				statusMessage.value = "**Submission Failed**: Unable to send the form. Please try again later.";
+				statusMessage.value = "Submission Failed: Unable to send the form. Please try again later.";
 			}
 		}
 	};
