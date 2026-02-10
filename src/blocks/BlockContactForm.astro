@@ -51,7 +51,6 @@
 			statusMessage.setAttribute("data-status", "completed");
 			statusMessage.value = result.message;
 		} catch (error) {
-			console.error("Form submission error:", error);
 			statusMessage.setAttribute("data-status", "error");
 
 			if (error instanceof TypeError && error.message.includes("NetworkError")) {
@@ -59,7 +58,7 @@
 			} else if (!navigator.onLine) {
 				statusMessage.value = "Network Error: Please check your internet connection.";
 			} else {
-				statusMessage.value = "Submission Failed: Unable to send the form. Please try again later.";
+				statusMessage.value = "Submission Failed: Please try again later.";
 			}
 		}
 	};
