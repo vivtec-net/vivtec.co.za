@@ -52,12 +52,10 @@
 			statusMessage.value = result.message;
 		} catch (error) {
 			statusMessage.setAttribute("data-status", "error");
-			statusMessage.value = "Undefined Error";
+			statusMessage.value = "You made a mistake you twat";
 
 			if (error instanceof TypeError) {
-				statusMessage.value = "wee";
-			} else {
-				throw "Validation Error";
+				statusMessage.value = "Fucking CORS";
 			}
 		}
 	};
