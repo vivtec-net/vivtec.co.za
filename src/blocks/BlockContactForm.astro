@@ -26,7 +26,7 @@
 	</fieldset>
 	<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f6-p8-o1" />
 	<button type="submit">Send Message</button>
-	<output id="statusMessage" aria-live="polite">Status Message</output>
+	<output id="statusMessage" aria-live="polite"></output>
 </form>
 
 <script is:inline>
@@ -34,7 +34,7 @@
 		e.preventDefault();
 
 		statusMessage.setAttribute("data-status", "submitting");
-		statusMessage.value = "Submitting form...";
+		statusMessage.value = "Processing Data: Submitting form...";
 
 		try {
 			let response = await fetch("https://lab.vivtec.co.za/forms/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
@@ -50,10 +50,10 @@
 
 			statusMessage.setAttribute("data-status", "completed");
 			statusMessage.value = result.message;
-		} catch (error) {
+		} catch (err) {
 			statusMessage.setAttribute("data-status", "error");
 
-			if (error instanceof TypeError && error.message.includes("NetworkError")) {
+			if (err instanceof TypeError && err.message.includes("NetworkError")) {
 				statusMessage.value = "Access Restricted: Form submission blocked.";
 			} else if (!navigator.onLine) {
 				statusMessage.value = "Network Error: Please check your internet connection.";
@@ -66,12 +66,18 @@
 
 <style>
 	output {
+		&:empty {
+			display: none;
+		}
+
 		&[data-status="submitting"] {
 			background: orange;
 		}
+
 		&[data-status="error"] {
 			background: red;
 		}
+
 		&[data-status="completed"] {
 			background: green;
 		}
