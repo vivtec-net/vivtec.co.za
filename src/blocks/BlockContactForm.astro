@@ -26,15 +26,15 @@
 	</fieldset>
 	<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f6-p8-o1" />
 	<button type="submit">Send Message</button>
-	<output id="statusMessage" aria-live="polite"></output>
+	<output id="statusMessage"></output>
 </form>
 
 <script is:inline>
 	formContact.onsubmit = async (e) => {
 		e.preventDefault();
 
-		statusMessage.setAttribute("data-status", "submitting");
-		statusMessage.value = "Processing Data: Submitting form...";
+		statusMessage.setAttribute("data-status", "processing");
+		statusMessage.value = "Processing";
 
 		try {
 			let response = await fetch("https://lab.vivtec.co.za/forms/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
@@ -42,23 +42,22 @@
 				body: new FormData(formContact),
 			});
 
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-
 			let result = await response.json();
+
+			if (result.status == "mail_sent") {
+				throw new Error("Bullsite");
+			}
 
 			statusMessage.setAttribute("data-status", "completed");
 			statusMessage.value = result.message;
-		} catch (err) {
+		} catch (error) {
 			statusMessage.setAttribute("data-status", "error");
+			statusMessage.value = "Undefined Error";
 
-			if (err instanceof TypeError && err.message.includes("NetworkError")) {
-				statusMessage.value = "Access Restricted: Form submission blocked.";
-			} else if (!navigator.onLine) {
-				statusMessage.value = "Network Error: Please check your internet connection.";
+			if (error instanceof TypeError) {
+				statusMessage.value = "wee";
 			} else {
-				statusMessage.value = "Submission Failed: Please try again later.";
+				throw err;
 			}
 		}
 	};
@@ -69,15 +68,12 @@
 		&:empty {
 			display: none;
 		}
-
-		&[data-status="submitting"] {
-			background: orange;
+		&[data-status="processing"] {
+			background: dimgray;
 		}
-
 		&[data-status="error"] {
 			background: red;
 		}
-
 		&[data-status="completed"] {
 			background: green;
 		}
