@@ -44,8 +44,8 @@
 
 			let result = await response.json();
 
-			if (result.status == "mail_sent") {
-				throw new Error("Bullsite");
+			if (result.status !== "mail_sent") {
+				throw new Error("Validation Error");
 			}
 
 			statusMessage.setAttribute("data-status", "completed");
@@ -57,7 +57,7 @@
 			if (error instanceof TypeError) {
 				statusMessage.value = "wee";
 			} else {
-				throw error;
+				throw "Validation Error";
 			}
 		}
 	};
