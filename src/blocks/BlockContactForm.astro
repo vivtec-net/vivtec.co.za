@@ -36,15 +36,37 @@
 		statusMessage.setAttribute("data-status", "submitting");
 		statusMessage.value = "Submitting form...";
 
-		let response = await fetch("https://lab.vivtec.co.za/forms/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
-			method: "POST",
-			body: new FormData(formContact),
-		});
+		try {
+			let response = await fetch("https://lab.vivtec.co.za/forms/wp-json/contact-form-7/v1/contact-forms/6/feedback", {
+				method: "POST",
+				body: new FormData(formContact),
+			});
 
-		let result = await response.json();
+			if (!response.ok) {
+				// Handle non-200 responses, including 403
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
 
-		statusMessage.setAttribute("data-status", "completed");
-		statusMessage.value = result.message;
+			let result = await response.json();
+
+			statusMessage.setAttribute("data-status", "completed");
+			statusMessage.value = result.message;
+		} catch (error) {
+			// Comprehensive error handling
+			console.error("Form submission error:", error);
+
+			// Set status to error
+			statusMessage.setAttribute("data-status", "error");
+
+			// Provide user-friendly error messages based on different scenarios
+			if (error.message.includes("403")) {
+				statusMessage.value = "**Access Denied**: The form submission was blocked. Please contact support.";
+			} else if (!navigator.onLine) {
+				statusMessage.value = "**Network Error**: Please check your internet connection.";
+			} else {
+				statusMessage.value = "**Submission Failed**: Unable to send the form. Please try again later.";
+			}
+		}
 	};
 </script>
 
