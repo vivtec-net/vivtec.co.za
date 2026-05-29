@@ -44,15 +44,16 @@
 
 			let result = await response.json();
 
-			if (result.status !== "mail_sent") {
-				throw error;
+			if (result.status === "mail_sent") {
+				statusMessage.setAttribute("data-status", "completed");
+				statusMessage.value = result.message;
+			} else {
+				statusMessage.setAttribute("data-status", "error");
+				statusMessage.value = "You made a mistake";
 			}
-
-			statusMessage.setAttribute("data-status", "completed");
-			statusMessage.value = result.message;
 		} catch (error) {
 			statusMessage.setAttribute("data-status", "error");
-			statusMessage.value = "You made a mistake you twat";
+			statusMessage.value = "We don't know what went wrong";
 
 			if (error instanceof TypeError) {
 				statusMessage.value = "Fucking CORS";
